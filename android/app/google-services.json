@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "802776261648",
+    "project_id": "pas-service",
+    "storage_bucket": "pas-service.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:802776261648:android:0a2b72915fe9c093a61695",
+        "android_client_info": {
+          "package_name": "com.example.pas_service"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDp_FcQlATR8MydLdZAjwPjvGwEE1Pqsw0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
