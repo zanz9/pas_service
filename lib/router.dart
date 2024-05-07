@@ -5,18 +5,27 @@ import 'package:pas_service/features/auth/login/login.dart';
 import 'package:pas_service/features/auth/register/register.dart';
 import 'package:pas_service/features/home/home.dart';
 
-// GoRouter configuration
+class RouterNames {
+  static const String login = '/login';
+  static const String register = '/register';
+  static const String home = '/';
+  static const String user = '/user';
+}
+
 final router = GoRouter(
   routes: [
     GoRoute(
+      name: RouterNames.home,
       path: '/',
       builder: (context, state) => const Home(),
     ),
     GoRoute(
+      name: RouterNames.login,
       path: '/login',
       builder: (context, state) => const Login(),
     ),
     GoRoute(
+      name: RouterNames.register,
       path: '/register',
       builder: (context, state) => const Register(),
     ),

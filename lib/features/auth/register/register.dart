@@ -36,7 +36,7 @@ class _RegisterState extends State<Register> {
         "lastName": lastNameController.text
       };
       await db.collection("users").doc(emailController.text).set(user);
-      router.go('/');
+      router.goNamed(RouterNames.home);
     } on FirebaseAuthException catch (e) {
       setState(() {
         if (e.code == 'weak-password') {
@@ -117,9 +117,7 @@ class _RegisterState extends State<Register> {
                   ),
                   const SizedBox(height: 20),
                   GestureDetector(
-                    onTap: () {
-                      context.go('/login');
-                    },
+                    onTap: () => context.goNamed(RouterNames.login),
                     child: const Text(
                       'Уже есть аккаунт? Войти',
                       style: TextStyle(

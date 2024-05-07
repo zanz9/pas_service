@@ -27,7 +27,7 @@ class _LoginState extends State<Login> {
         email: emailController.text.trim(),
         password: passwordController.text.trim(),
       );
-      router.go('/');
+      router.goNamed(RouterNames.home);
     } on FirebaseAuthException catch (e) {
       setState(() {
         if (e.code == 'user-not-found') {
@@ -86,7 +86,7 @@ class _LoginState extends State<Login> {
                   ),
                   const SizedBox(height: 20),
                   GestureDetector(
-                    onTap: () => context.go('/register'),
+                    onTap: () => context.goNamed(RouterNames.register),
                     child: const Text(
                       'Нет аккаунта? Зарегистроваться',
                       style: TextStyle(
