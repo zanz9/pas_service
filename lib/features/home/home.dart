@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:pas_service/features/home/components/list_users.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -9,7 +10,6 @@ class Home extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Персоналды бағалау жүйесі'),
-        centerTitle: true,
         actions: [
           IconButton(
             onPressed: () async {
@@ -19,9 +19,7 @@ class Home extends StatelessWidget {
           )
         ],
       ),
-      body: const Column(
-        children: [],
-      ),
+      body: const ListUsers(),
     );
   }
 }
