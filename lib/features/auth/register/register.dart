@@ -18,9 +18,11 @@ class _RegisterState extends State<Register> {
   final firstNameController = TextEditingController();
   final lastNameController = TextEditingController();
   String message = '';
+  bool isPressed = false;
 
   register() async {
     setState(() {
+      isPressed = true;
       message = '';
     });
     try {
@@ -45,6 +47,8 @@ class _RegisterState extends State<Register> {
       });
     } catch (e) {
       debugPrint(e.toString());
+    } finally {
+      isPressed = false;
     }
   }
 
@@ -107,7 +111,9 @@ class _RegisterState extends State<Register> {
                   CupertinoButton(
                     onPressed: register,
                     color: CupertinoColors.activeBlue,
-                    child: const Text('Зарегистрироваться'),
+                    child: isPressed
+                        ? const CircularProgressIndicator.adaptive()
+                        : const Text('Зарегистрироваться'),
                   ),
                   const SizedBox(height: 20),
                   GestureDetector(

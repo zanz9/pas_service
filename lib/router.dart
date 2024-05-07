@@ -22,10 +22,9 @@ final router = GoRouter(
     ),
   ],
   redirect: (BuildContext context, GoRouterState state) async {
-    print(FirebaseAuth.instance.currentUser);
     final bool isNotLogin = FirebaseAuth.instance.currentUser == null;
-    if ((isNotLogin && state.matchedLocation == '/login') &&
-        (isNotLogin && state.matchedLocation == '/register')) {
+    if ((isNotLogin && state.matchedLocation != '/login') &&
+        (isNotLogin && state.matchedLocation != '/register')) {
       return '/login';
     }
     if (!isNotLogin && state.matchedLocation == '/login') {

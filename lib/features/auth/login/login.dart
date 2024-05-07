@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -15,15 +17,17 @@ class _LoginState extends State<Login> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   String message = '';
+  bool isPressed = false;
 
   login() async {
     setState(() {
+      isPressed = true;
       message = '';
     });
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: emailController.text,
-        password: passwordController.text,
+        email: emailController.text.trim(),
+        password: passwordController.text.trim(),
       );
       router.go('/');
     } on FirebaseAuthException catch (e) {
@@ -34,6 +38,8 @@ class _LoginState extends State<Login> {
           message = 'Неверный пароль';
         }
       });
+    } finally {
+      isPressed = false;
     }
   }
 
@@ -76,7 +82,9 @@ class _LoginState extends State<Login> {
                   CupertinoButton(
                     onPressed: login,
                     color: CupertinoColors.activeBlue,
-                    child: const Text('Войти'),
+                    child: isPressed
+                        ? const CircularProgressIndicator.adaptive()
+                        : const Text('Войти'),
                   ),
                   const SizedBox(height: 20),
                   GestureDetector(
