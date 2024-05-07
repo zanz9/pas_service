@@ -1,8 +1,41 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:pas_service/router.dart';
 
-class Login extends StatelessWidget {
+class Login extends StatefulWidget {
   const Login({super.key});
+
+  @override
+  State<Login> createState() => _LoginState();
+}
+
+class _LoginState extends State<Login> {
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+  String message = '';
+
+  login() async {
+    setState(() {
+      message = '';
+    });
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: emailController.text,
+        password: passwordController.text,
+      );
+      router.go('/');
+    } on FirebaseAuthException catch (e) {
+      setState(() {
+        if (e.code == 'user-not-found') {
+          message = 'Пользователь не найден';
+        } else if (e.code == 'wrong-password') {
+          message = 'Неверный пароль';
+        }
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +52,7 @@ class Login extends StatelessWidget {
             children: [
               const SizedBox(height: 16.0),
               CupertinoTextFormFieldRow(
+                controller: emailController,
                 placeholder: 'Email',
                 decoration: BoxDecoration(
                   border: Border.all(color: CupertinoColors.inactiveGray),
@@ -27,7 +61,8 @@ class Login extends StatelessWidget {
               ),
               const SizedBox(height: 16.0),
               CupertinoTextFormFieldRow(
-                placeholder: 'Password',
+                controller: passwordController,
+                placeholder: 'Пароль',
                 obscureText: true,
                 decoration: BoxDecoration(
                   border: Border.all(color: CupertinoColors.inactiveGray),
@@ -39,13 +74,13 @@ class Login extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   CupertinoButton(
-                    onPressed: () {},
+                    onPressed: login,
                     color: CupertinoColors.activeBlue,
                     child: const Text('Войти'),
                   ),
                   const SizedBox(height: 20),
                   GestureDetector(
-                    onTap: () {},
+                    onTap: () => context.go('/register'),
                     child: const Text(
                       'Нет аккаунта? Зарегистроваться',
                       style: TextStyle(
