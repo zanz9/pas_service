@@ -33,7 +33,9 @@ class _RegisterState extends State<Register> {
       );
       final user = <String, dynamic>{
         "firstName": firstNameController.text,
-        "lastName": lastNameController.text
+        "lastName": lastNameController.text,
+        "isAdmin": false,
+        "state": true,
       };
       await db.collection("users").doc(emailController.text).set(user);
       router.goNamed(RouterNames.home);

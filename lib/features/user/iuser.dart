@@ -1,11 +1,25 @@
 class IUser {
   final String email;
-  final String firstName;
-  final String lastName;
+  late String firstName;
+  late String lastName;
+  late bool state;
 
-  IUser({
-    required this.email,
-    required this.firstName,
-    required this.lastName,
-  });
+  IUser({required this.email});
+
+  fromFirestore(Map<String, dynamic> data) {
+    firstName = data['firstName'];
+    lastName = data['lastName'];
+    state = data['state'];
+
+    return this;
+  }
+
+  toFirestore() {
+    return {
+      'email': email,
+      'firstName': firstName,
+      'lastName': lastName,
+      'state': state,
+    };
+  }
 }

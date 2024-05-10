@@ -16,7 +16,8 @@ class _ListUsersState extends State<ListUsers> {
 
   getAllUsers() async {
     var db = FirebaseFirestore.instance;
-    final usersDocs = await db.collection('users').get();
+    final usersDocs =
+        await db.collection('users').where('isAdmin', isNotEqualTo: true).get();
     for (var doc in usersDocs.docs) {
       var data = doc.data();
       users.add({
