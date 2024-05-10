@@ -34,11 +34,7 @@ class _UserPageState extends State<UserPage> {
     var db = FirebaseFirestore.instance;
     final userDocs = await db.collection('users').doc(widget.id).get();
     final data = userDocs.data();
-    user = IUser(
-      email: widget.id,
-      firstName: data!['firstName'],
-      lastName: data['lastName'],
-    );
+    user = IUser(email: widget.id).fromFirestore(data!);
     isLoaded = true;
     setState(() {});
   }
@@ -50,9 +46,25 @@ class _UserPageState extends State<UserPage> {
       appBar: AppBar(
         title: const Text('Страница пользователя'),
       ),
-      bottomNavigationBar: BottomAppBar(
-        child: ElevatedButton(onPressed: () {}, child: const Text('asdsd')),
-      ),
+      bottomNavigationBar: !isLoaded
+          ? null
+          : BottomAppBar(
+              height: 70,
+              child: user!.state
+                  ? ElevatedButton(
+                      onPressed: () {},
+                      child: const Text('Начать оценку'),
+                    )
+                  : Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Этот пользователь не нуждается в оценке',
+                          style: theme.textTheme.titleMedium,
+                        ),
+                      ],
+                    ),
+            ),
       body: !isLoaded
           ? const Center(child: CircularProgressIndicator())
           : ListView(
