@@ -42,7 +42,7 @@ class UserCard extends StatelessWidget {
               Icon(
                 Icons.arrow_forward_ios_rounded,
                 color: theme.hintColor,
-              )
+              ),
             ],
           ),
         ),

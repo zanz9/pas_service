@@ -29,8 +29,6 @@ class _LoginState extends State<Login> {
       );
       router.goNamed(RouterNames.home);
     } on FirebaseAuthException catch (e) {
-      print('==================================================');
-      print(e.code);
       setState(() {
         if (e.code == 'user-not-found') {
           message = 'Пользователь не найден';
@@ -40,8 +38,6 @@ class _LoginState extends State<Login> {
           message = 'Неверные данные для входа';
         }
       });
-    } catch (e) {
-      print(123123123);
     } finally {
       isPressed = false;
     }
