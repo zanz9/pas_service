@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:pas_service/features/auth/login/login.dart';
 import 'package:pas_service/features/auth/register/register.dart';
 import 'package:pas_service/features/home/home.dart';
+import 'package:pas_service/features/user/user.dart';
 
 class RouterNames {
   static const String login = '/login';
@@ -18,6 +19,11 @@ final router = GoRouter(
       name: RouterNames.home,
       path: '/',
       builder: (context, state) => const Home(),
+    ),
+    GoRoute(
+      name: RouterNames.user,
+      path: '/user/:id',
+      builder: (context, state) => UserPage(id: state.pathParameters['id']!),
     ),
     GoRoute(
       name: RouterNames.login,

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:pas_service/router.dart';
 
 class UserCard extends StatelessWidget {
   const UserCard({
@@ -21,7 +23,9 @@ class UserCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
       ),
       child: InkWell(
-        onTap: () {},
+        onTap: () {
+          context.pushNamed(RouterNames.user, pathParameters: {'id': email});
+        },
         borderRadius: BorderRadius.circular(12),
         child: Padding(
           padding: const EdgeInsets.all(12),

@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 
-class User extends StatelessWidget {
-  const User({super.key});
+class UserPage extends StatelessWidget {
+  const UserPage({super.key, required this.id});
+  final String id;
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Страница пользователя'),
+      ),
+      body: Center(child: Text(id)),
+    );
   }
 }

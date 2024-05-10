@@ -55,81 +55,78 @@ class _RegisterState extends State<Register> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: CupertinoPageScaffold(
-        navigationBar: const CupertinoNavigationBar(
-          middle: Text('Регистрация'),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const SizedBox(height: 16.0),
-              CupertinoTextFormFieldRow(
-                controller: emailController,
-                placeholder: 'Email',
-                decoration: BoxDecoration(
-                  border: Border.all(color: CupertinoColors.inactiveGray),
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
+      appBar: AppBar(
+        title: const Text('Регистрация'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const SizedBox(height: 16.0),
+            TextField(
+              controller: emailController,
+              decoration: const InputDecoration(
+                label: Text('Email'),
+                border: OutlineInputBorder(),
               ),
-              const SizedBox(height: 16.0),
-              CupertinoTextFormFieldRow(
-                controller: firstNameController,
-                placeholder: 'Имя',
-                decoration: BoxDecoration(
-                  border: Border.all(color: CupertinoColors.inactiveGray),
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
+            ),
+            const SizedBox(height: 16.0),
+            TextField(
+              controller: firstNameController,
+              decoration: const InputDecoration(
+                label: Text('Имя'),
+                border: OutlineInputBorder(),
               ),
-              const SizedBox(height: 16.0),
-              CupertinoTextFormFieldRow(
-                controller: lastNameController,
-                placeholder: 'Фамилия',
-                decoration: BoxDecoration(
-                  border: Border.all(color: CupertinoColors.inactiveGray),
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
+            ),
+            const SizedBox(height: 16.0),
+            TextField(
+              controller: lastNameController,
+              decoration: const InputDecoration(
+                label: Text('Фамилия'),
+                border: OutlineInputBorder(),
               ),
-              const SizedBox(height: 16.0),
-              CupertinoTextFormFieldRow(
-                controller: passwordController,
-                placeholder: 'Пароль',
-                obscureText: true,
-                decoration: BoxDecoration(
-                  border: Border.all(color: CupertinoColors.inactiveGray),
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
+            ),
+            const SizedBox(height: 16.0),
+            TextField(
+              controller: passwordController,
+              obscureText: true,
+              decoration: const InputDecoration(
+                label: Text('Пароль'),
+                border: OutlineInputBorder(),
               ),
-              const SizedBox(height: 16.0),
-              Text(message),
-              const SizedBox(height: 16.0),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  CupertinoButton(
-                    onPressed: register,
-                    color: CupertinoColors.activeBlue,
-                    child: isPressed
-                        ? const CircularProgressIndicator.adaptive()
-                        : const Text('Зарегистрироваться'),
-                  ),
-                  const SizedBox(height: 20),
-                  GestureDetector(
-                    onTap: () => context.goNamed(RouterNames.login),
-                    child: const Text(
-                      'Уже есть аккаунт? Войти',
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: CupertinoColors.inactiveGray,
-                      ),
+            ),
+            const SizedBox(height: 16.0),
+            Text(message),
+            const SizedBox(height: 16.0),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                ElevatedButton(
+                  onPressed: register,
+                  style: ButtonStyle(
+                      padding: MaterialStateProperty.all(
+                    const EdgeInsets.symmetric(horizontal: 64),
+                  )),
+                  child: isPressed
+                      ? const CircularProgressIndicator.adaptive()
+                      : const Text('Зарегистрироваться'),
+                ),
+                const SizedBox(height: 20),
+                GestureDetector(
+                  onTap: () => context.goNamed(RouterNames.login),
+                  child: const Text(
+                    'Уже есть аккаунт? Войти',
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: CupertinoColors.inactiveGray,
                     ),
                   ),
-                ],
-              ),
-            ],
-          ),
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );
