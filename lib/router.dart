@@ -5,12 +5,14 @@ import 'package:pas_service/features/auth/login/login.dart';
 import 'package:pas_service/features/auth/register/register.dart';
 import 'package:pas_service/features/home/home.dart';
 import 'package:pas_service/features/user/user.dart';
+import 'package:pas_service/features/user/validate.dart';
 
 class RouterNames {
   static const String login = '/login';
   static const String register = '/register';
   static const String home = '/';
   static const String user = '/user';
+  static const String validate = '/validate';
 }
 
 final router = GoRouter(
@@ -24,6 +26,11 @@ final router = GoRouter(
       name: RouterNames.user,
       path: '/user/:id',
       builder: (context, state) => UserPage(id: state.pathParameters['id']!),
+    ),
+    GoRoute(
+      name: RouterNames.validate,
+      path: '/validate/:id',
+      builder: (context, state) => Validate(id: state.pathParameters['id']!),
     ),
     GoRoute(
       name: RouterNames.login,

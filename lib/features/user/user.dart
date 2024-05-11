@@ -1,9 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:pas_service/features/user/iuser.dart';
+import 'package:go_router/go_router.dart';
+import 'package:pas_service/features/user/models/iuser.dart';
+import 'package:pas_service/router.dart';
 
 import 'components/criteria_widget.dart';
 import 'components/label_with_result.dart';
+import 'components/user_field.dart';
+import 'models/criteria.dart';
 
 class UserPage extends StatefulWidget {
   const UserPage({super.key, required this.id});
@@ -16,13 +20,7 @@ class UserPage extends StatefulWidget {
 class _UserPageState extends State<UserPage> {
   bool isLoaded = false;
   IUser? user;
-
-  Map<String, Map<String, double>> criteria = {'professional': {}};
-
-  setCriteria(key1, key2, value) {
-    criteria[key1]![key2] = value;
-    setState(() {});
-  }
+  ICriteria criteria = ICriteria();
 
   @override
   void initState() {
@@ -32,9 +30,15 @@ class _UserPageState extends State<UserPage> {
 
   getValuesFromId() async {
     var db = FirebaseFirestore.instance;
+
     final userDocs = await db.collection('users').doc(widget.id).get();
     final data = userDocs.data();
     user = IUser(email: widget.id).fromFirestore(data!);
+
+    final criteriaDocs = await db.collection('criteria').doc(widget.id).get();
+    final criteriaData = criteriaDocs.data();
+    criteria = criteria.fromFirestore(criteriaData ?? {});
+
     isLoaded = true;
     setState(() {});
   }
@@ -52,7 +56,15 @@ class _UserPageState extends State<UserPage> {
               height: 70,
               child: user!.state
                   ? ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () async {
+                        final bool? onRefresh = await context.pushNamed(
+                          RouterNames.validate,
+                          pathParameters: {'id': user!.email},
+                        );
+                        if (onRefresh == true) {
+                          getValuesFromId();
+                        }
+                      },
                       child: const Text('Начать оценку'),
                     )
                   : Row(
@@ -70,22 +82,7 @@ class _UserPageState extends State<UserPage> {
           : ListView(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
               children: [
-                Row(
-                  children: [
-                    CircleAvatar(
-                      child: Text(user!.lastName[0] + user!.firstName[0]),
-                    ),
-                    const SizedBox(width: 12),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('${user!.lastName} ${user!.firstName}'),
-                        Text(user!.email),
-                      ],
-                    ),
-                  ],
-                ),
-                const Divider(),
+                UserField(user: user),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -95,59 +92,112 @@ class _UserPageState extends State<UserPage> {
                     ),
                   ],
                 ),
-                const CriteriaWidget(
+                CriteriaWidget(
                   headtext: 'Профессиональные качества',
                   labels: Column(
                     children: [
-                      LabelWithResult(text1: 'Знания', text2: '2/10'),
-                      LabelWithResult(text1: 'Умения', text2: '1/10'),
-                      LabelWithResult(text1: 'Навыки', text2: '1/10'),
                       LabelWithResult(
-                          text1: 'Проффесиональный опыт', text2: '1/10'),
-                      LabelWithResult(text1: 'Квалификация', text2: '1/10'),
-                      LabelWithResult(text1: 'Результаты труда', text2: '1/10'),
+                          text1: 'Знания',
+                          text2:
+                              '${criteria.professional.knowledge.toInt()}/10'),
+                      LabelWithResult(
+                          text1: 'Умения',
+                          text2: '${criteria.professional.ability.toInt()}/10'),
+                      LabelWithResult(
+                          text1: 'Навыки',
+                          text2: '${criteria.professional.skills.toInt()}/10'),
+                      LabelWithResult(
+                          text1: 'Проффесиональный опыт',
+                          text2:
+                              '${criteria.professional.experience.toInt()}/10'),
+                      LabelWithResult(
+                          text1: 'Квалификация',
+                          text2:
+                              '${criteria.professional.qualification.toInt()}/10'),
+                      LabelWithResult(
+                          text1: 'Результаты труда',
+                          text2:
+                              '${criteria.professional.resultOfWork.toInt()}/10'),
                     ],
                   ),
                 ),
-                const CriteriaWidget(
-                  headtext: 'Личностные характеристики',
+                CriteriaWidget(
+                  headtext: 'Личностные качества',
                   labels: Column(
-                    children: [LabelWithResult(text1: 'text1', text2: 'text2')],
+                    children: [
+                      LabelWithResult(
+                        text1: 'Способность к самооценке',
+                        text2:
+                            '${criteria.personal.theAbilityToSelfEsteem.toInt()}/10',
+                      ),
+                      LabelWithResult(
+                        text1: 'Нравственность',
+                        text2: '${criteria.personal.morality.toInt()}/10',
+                      ),
+                      LabelWithResult(
+                        text1: 'Честность',
+                        text2: '${criteria.personal.honesty.toInt()}/10',
+                      ),
+                      LabelWithResult(
+                        text1: 'Справедливость',
+                        text2: '${criteria.personal.justice.toInt()}/10',
+                      ),
+                      LabelWithResult(
+                        text1: 'Психологическая уствойчивость',
+                        text2:
+                            '${criteria.personal.psychologicalStability.toInt()}/10',
+                      ),
+                    ],
                   ),
-                )
+                ),
+                CriteriaWidget(
+                  headtext: 'Деловые качества',
+                  labels: Column(
+                    children: [
+                      LabelWithResult(
+                        text1: 'Организованность',
+                        text2: '${criteria.business.organization.toInt()}/10',
+                      ),
+                      LabelWithResult(
+                        text1: 'Ответственность',
+                        text2: '${criteria.business.responsibility.toInt()}/10',
+                      ),
+                      LabelWithResult(
+                        text1: 'Инициативность',
+                        text2: '${criteria.business.initiative.toInt()}/10',
+                      ),
+                      LabelWithResult(
+                        text1: 'Предприимчивость',
+                        text2: '${criteria.business.enterprise.toInt()}/10',
+                      ),
+                    ],
+                  ),
+                ),
+                CriteriaWidget(
+                  headtext: 'Интегральные качества',
+                  labels: Column(
+                    children: [
+                      LabelWithResult(
+                        text1: 'Авторитет',
+                        text2: '${criteria.integral.authority.toInt()}/10',
+                      ),
+                      LabelWithResult(
+                        text1: 'Культура',
+                        text2: '${criteria.integral.culture.toInt()}/10',
+                      ),
+                      LabelWithResult(
+                        text1: 'Мышление',
+                        text2: '${criteria.integral.thinking.toInt()}/10',
+                      ),
+                      LabelWithResult(
+                        text1: 'Речь',
+                        text2: '${criteria.integral.speech.toInt()}/10',
+                      ),
+                    ],
+                  ),
+                ),
               ],
             ),
-    );
-  }
-}
-
-class LabelWithSlider extends StatefulWidget {
-  const LabelWithSlider(
-      {super.key, required this.value, this.onChanged, required this.text});
-  final String text;
-  final double value;
-  final Function(double)? onChanged;
-
-  @override
-  State<LabelWithSlider> createState() => _LabelWithSliderState();
-}
-
-class _LabelWithSliderState extends State<LabelWithSlider> {
-  @override
-  Widget build(BuildContext context) {
-    var theme = Theme.of(context);
-    return Column(
-      children: [
-        Text(widget.text, style: theme.textTheme.labelLarge),
-        Slider(
-          value: widget.value,
-          onChanged: widget.onChanged,
-          max: 10,
-          min: 0,
-          divisions: 10,
-          label: widget.value.toInt().toString(),
-        ),
-      ],
     );
   }
 }

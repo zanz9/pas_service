@@ -16,10 +16,10 @@ class IUser {
 
   toFirestore() {
     return {
-      'email': email,
       'firstName': firstName,
       'lastName': lastName,
       'state': state,
+      'isAdmin': false,
     };
   }
 }
