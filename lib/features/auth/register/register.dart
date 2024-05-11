@@ -28,12 +28,12 @@ class _RegisterState extends State<Register> {
     try {
       var db = FirebaseFirestore.instance;
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: emailController.text,
-        password: passwordController.text,
+        email: emailController.text.trim(),
+        password: passwordController.text.trim(),
       );
       final user = <String, dynamic>{
-        "firstName": firstNameController.text,
-        "lastName": lastNameController.text,
+        "firstName": firstNameController.text.trim(),
+        "lastName": lastNameController.text.trim(),
         "isAdmin": false,
         "state": true,
       };
@@ -62,11 +62,9 @@ class _RegisterState extends State<Register> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
+        child: ListView(
           children: [
-            const SizedBox(height: 16.0),
+            const SizedBox(height: 128.0),
             TextField(
               controller: emailController,
               decoration: const InputDecoration(
