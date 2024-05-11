@@ -3,6 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:pas_service/features/home/components/list_users.dart';
 
+import 'components/profile.dart';
+
 class Home extends StatefulWidget {
   const Home({super.key});
 
@@ -11,13 +13,16 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  bool isLoaded = false;
   bool isAdmin = false;
+  User? user = FirebaseAuth.instance.currentUser;
+
   getCurrentUser() async {
-    final user = FirebaseAuth.instance.currentUser;
     var db = FirebaseFirestore.instance;
-    final userData = await db.collection('users').doc(user?.email).get();
+    final userData = await db.collection('users').doc(user!.email).get();
     final data = userData.data();
     isAdmin = data?['isAdmin'] ?? false;
+    isLoaded = true;
     setState(() {});
   }
 
@@ -43,9 +48,13 @@ class _HomeState extends State<Home> {
         ),
         body: RefreshIndicator(
           onRefresh: () async {
-            setState(() {});
+            getCurrentUser();
           },
-          child: isAdmin ? const ListUsers() : const Text("Yor're not admin"),
+          child: !isLoaded
+              ? const Center(child: CircularProgressIndicator())
+              : isAdmin
+                  ? const ListUsers()
+                  : Profile(currentUser: user!),
         ));
   }
 }
