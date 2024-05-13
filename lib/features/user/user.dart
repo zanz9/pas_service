@@ -70,7 +70,7 @@ class _UserPageState extends State<UserPage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          'Этот пользователь не нуждается в оценке',
+                          'У пользователя пройдена проверка оценки',
                           style: theme.textTheme.titleMedium,
                         ),
                       ],

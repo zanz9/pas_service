@@ -22,8 +22,11 @@ class _ProfileState extends State<Profile> {
     var db = FirebaseFirestore.instance;
 
     user = IUser(email: widget.currentUser.email!);
-    final userData = await db.collection('users').doc(user.email).get();
-    user = user.fromFirestore(userData.data()!);
+    final userDoc = db.collection('users').doc(user.email);
+    userDoc.snapshots().listen((event) {
+      user = user.fromFirestore(event.data()!);
+      setState(() {});
+    });
 
     final criteriaDocs = await db.collection('criteria').doc(user.email).get();
     final criteriaData = criteriaDocs.data();
@@ -34,15 +37,9 @@ class _ProfileState extends State<Profile> {
   }
 
   onSubmitToChangeState() async {
-    isLoaded = false;
-    setState(() {});
-
     var db = FirebaseFirestore.instance;
     user.state = true;
     await db.collection('users').doc(user.email).set(user.toFirestore());
-
-    isLoaded = true;
-    setState(() {});
   }
 
   @override
