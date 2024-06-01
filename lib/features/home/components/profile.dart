@@ -87,7 +87,9 @@ class _ProfileState extends State<Profile> {
           ],
         ),
         const Divider(),
-        CriteriaList(criteria: criteria)
+        user.firstTime
+            ? const SizedBox()
+            : CriteriaList(criteria: criteria, user: user)
       ],
     );
   }

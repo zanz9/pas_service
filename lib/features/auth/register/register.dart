@@ -36,6 +36,7 @@ class _RegisterState extends State<Register> {
         "lastName": lastNameController.text.trim(),
         "isAdmin": false,
         "state": true,
+        "firstTime": true,
       };
       await db.collection("users").doc(emailController.text).set(user);
       router.goNamed(RouterNames.home);

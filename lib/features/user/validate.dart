@@ -50,7 +50,14 @@ class _ValidateState extends State<Validate> {
 
     var db = FirebaseFirestore.instance;
     await db.collection('criteria').doc(widget.id).set(criteria.toFirestore());
+
+    user!.business = criteria.business.getAVG();
+    user!.integral = criteria.integral.getAVG();
+    user!.professional = criteria.professional.getAVG();
+    user!.personal = criteria.personal.getAVG();
     user!.state = false;
+    user!.firstTime = false;
+
     await db.collection('users').doc(widget.id).set(user!.toFirestore());
 
     isLoaded = true;
@@ -88,6 +95,7 @@ class _ValidateState extends State<Validate> {
                 ),
                 CriteriaWidget(
                   headtext: 'Профессиональные качества',
+                  avgValue: user!.professional,
                   labels: Column(
                     children: [
                       LabelWithSlider(
@@ -137,6 +145,7 @@ class _ValidateState extends State<Validate> {
                 ),
                 CriteriaWidget(
                   headtext: 'Личные качества',
+                  avgValue: user!.personal,
                   labels: Column(
                     children: [
                       LabelWithSlider(
@@ -179,6 +188,7 @@ class _ValidateState extends State<Validate> {
                 ),
                 CriteriaWidget(
                   headtext: 'Деловые качества',
+                  avgValue: user!.business,
                   labels: Column(
                     children: [
                       LabelWithSlider(
@@ -214,6 +224,7 @@ class _ValidateState extends State<Validate> {
                 ),
                 CriteriaWidget(
                   headtext: 'Интегральные качества',
+                  avgValue: user!.integral,
                   labels: Column(
                     children: [
                       LabelWithSlider(

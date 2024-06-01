@@ -8,11 +8,13 @@ class UserCard extends StatelessWidget {
     required this.lastName,
     required this.firstName,
     required this.email,
+    required this.sortValue,
   });
 
   final String lastName;
   final String firstName;
   final String email;
+  final double sortValue;
 
   @override
   Widget build(BuildContext context) {
@@ -37,6 +39,7 @@ class UserCard extends StatelessWidget {
                 children: [
                   Text('$lastName $firstName'),
                   Text(email),
+                  Text(sortValue.toStringAsFixed(2)),
                 ],
               ),
               Icon(

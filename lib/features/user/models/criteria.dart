@@ -54,6 +54,16 @@ class IProfessional {
       'result of work': resultOfWork,
     };
   }
+
+  getAVG() {
+    return (knowledge +
+            ability +
+            skills +
+            experience +
+            qualification +
+            resultOfWork) /
+        6;
+  }
 }
 
 class IPersonal {
@@ -84,6 +94,15 @@ class IPersonal {
       'psychological stability': psychologicalStability,
     };
   }
+
+  getAVG() {
+    return (theAbilityToSelfEsteem +
+            morality +
+            honesty +
+            justice +
+            psychologicalStability) /
+        5;
+  }
 }
 
 class IBusiness {
@@ -111,6 +130,10 @@ class IBusiness {
       'enterprise': enterprise,
     };
   }
+
+  getAVG() {
+    return (organization + responsibility + initiative + enterprise) / 4;
+  }
 }
 
 class IIntegral {
@@ -137,5 +160,9 @@ class IIntegral {
       'thinking': thinking,
       'speech': speech,
     };
+  }
+
+  getAVG() {
+    return (authority + culture + thinking + speech) / 4;
   }
 }

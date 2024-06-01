@@ -48,6 +48,22 @@ class _UserPageState extends State<UserPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Страница пользователя'),
+        actions: [
+          IconButton(
+            onPressed: () async {
+              var db = FirebaseFirestore.instance;
+              user!.state = true;
+              await db
+                  .collection('users')
+                  .doc(widget.id)
+                  .set(user!.toFirestore());
+              setState(() {
+                getValuesFromId();
+              });
+            },
+            icon: const Icon(Icons.replay_circle_filled_rounded),
+          )
+        ],
       ),
       bottomNavigationBar: !isLoaded
           ? null
@@ -82,7 +98,7 @@ class _UserPageState extends State<UserPage> {
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
               children: [
                 UserField(user: user),
-                CriteriaList(criteria: criteria),
+                CriteriaList(criteria: criteria, user: user!),
               ],
             ),
     );

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pas_service/features/user/models/iuser.dart';
 
 import '../models/criteria.dart';
 import 'criteria_widget.dart';
@@ -8,9 +9,11 @@ class CriteriaList extends StatelessWidget {
   const CriteriaList({
     super.key,
     required this.criteria,
+    required this.user,
   });
 
   final ICriteria criteria;
+  final IUser user;
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +31,7 @@ class CriteriaList extends StatelessWidget {
         ),
         CriteriaWidget(
           headtext: 'Профессиональные качества',
+          avgValue: user.professional,
           labels: Column(
             children: [
               LabelWithResult(
@@ -53,6 +57,7 @@ class CriteriaList extends StatelessWidget {
         ),
         CriteriaWidget(
           headtext: 'Личностные качества',
+          avgValue: user.personal,
           labels: Column(
             children: [
               LabelWithResult(
@@ -80,6 +85,7 @@ class CriteriaList extends StatelessWidget {
         ),
         CriteriaWidget(
           headtext: 'Деловые качества',
+          avgValue: user.business,
           labels: Column(
             children: [
               LabelWithResult(
@@ -103,6 +109,7 @@ class CriteriaList extends StatelessWidget {
         ),
         CriteriaWidget(
           headtext: 'Интегральные качества',
+          avgValue: user.integral,
           labels: Column(
             children: [
               LabelWithResult(

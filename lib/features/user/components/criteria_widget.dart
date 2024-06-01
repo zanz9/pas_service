@@ -5,9 +5,11 @@ class CriteriaWidget extends StatelessWidget {
     super.key,
     required this.headtext,
     required this.labels,
+    required this.avgValue,
   });
   final String headtext;
   final Widget labels;
+  final double avgValue;
 
   @override
   Widget build(BuildContext context) {
@@ -17,9 +19,15 @@ class CriteriaWidget extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-          child: Text(
-            headtext,
-            style: theme.textTheme.bodyLarge,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                headtext,
+                style: theme.textTheme.bodyLarge,
+              ),
+              Text(avgValue.toStringAsFixed(2))
+            ],
           ),
         ),
         labels
