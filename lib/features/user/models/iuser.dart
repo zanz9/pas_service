@@ -18,10 +18,10 @@ class IUser {
     state = data['state'];
     firstTime = data['firstTime'];
 
-    professional = data['professional'] ?? 0;
-    personal = data['personal'] ?? 0;
-    business = data['business'] ?? 0;
-    integral = data['integral'] ?? 0;
+    professional = data['professional'].toDouble() ?? 0;
+    personal = data['personal'].toDouble() ?? 0;
+    business = data['business'].toDouble() ?? 0;
+    integral = data['integral'].toDouble() ?? 0;
 
     return this;
   }

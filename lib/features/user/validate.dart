@@ -60,6 +60,14 @@ class _ValidateState extends State<Validate> {
 
     await db.collection('users').doc(widget.id).set(user!.toFirestore());
 
+    await db.collection('backups').add(
+      {
+        ...criteria.toFirestore(),
+        'email': widget.id,
+        'date': FieldValue.serverTimestamp(),
+      },
+    );
+
     isLoaded = true;
     setState(() {});
     router.pop(true);

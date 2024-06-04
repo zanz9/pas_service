@@ -1,12 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:expandable_page_view/expandable_page_view.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pas_service/features/user/models/iuser.dart';
 import 'package:pas_service/router.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 
 import 'components/criteria_list.dart';
 import 'components/user_field.dart';
 import 'models/criteria.dart';
+
+import 'package:intl/intl.dart';
 
 class UserPage extends StatefulWidget {
   const UserPage({super.key, required this.id});
@@ -20,6 +24,11 @@ class _UserPageState extends State<UserPage> {
   bool isLoaded = false;
   IUser? user;
   ICriteria criteria = ICriteria();
+
+  List<LineData> chartProfessional = [];
+  List<LineData> chartPersonal = [];
+  List<LineData> chartBusiness = [];
+  List<LineData> chartIntegral = [];
 
   @override
   void initState() {
@@ -37,6 +46,39 @@ class _UserPageState extends State<UserPage> {
     final criteriaDocs = await db.collection('criteria').doc(widget.id).get();
     final criteriaData = criteriaDocs.data();
     criteria = criteria.fromFirestore(criteriaData ?? {});
+
+    final backups = await db
+        .collection('backups')
+        .where('email', isEqualTo: widget.id)
+        .get();
+
+    for (var element in backups.docs) {
+      var data = element.data();
+
+      var date = element['date'].toDate();
+      var dateStr = DateFormat('dd-MM-yyyy').format(date);
+      ICriteria criteriaBackup = ICriteria().fromFirestore(data);
+
+      chartProfessional.add(LineData(
+        dateStr,
+        criteriaBackup.professional.getAVG(),
+      ));
+
+      chartPersonal.add(LineData(
+        dateStr,
+        criteriaBackup.personal.getAVG(),
+      ));
+
+      chartBusiness.add(LineData(
+        dateStr,
+        criteriaBackup.business.getAVG(),
+      ));
+
+      chartIntegral.add(LineData(
+        dateStr,
+        criteriaBackup.integral.getAVG(),
+      ));
+    }
 
     isLoaded = true;
     setState(() {});
@@ -98,9 +140,66 @@ class _UserPageState extends State<UserPage> {
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
               children: [
                 UserField(user: user),
-                CriteriaList(criteria: criteria, user: user!),
+                ExpandablePageView(
+                  children: [
+                    CriteriaList(criteria: criteria, user: user!),
+                    Column(
+                      children: [
+                        Chart(
+                            data: chartProfessional,
+                            label: 'Профессиональные качества'),
+                        Chart(
+                            data: chartPersonal, label: 'Личностные качества'),
+                        Chart(data: chartBusiness, label: 'Деловые качества'),
+                        Chart(
+                            data: chartIntegral,
+                            label: 'Интегральные качества'),
+                      ],
+                    )
+                  ],
+                ),
               ],
             ),
     );
   }
+}
+
+class Chart extends StatelessWidget {
+  const Chart({
+    super.key,
+    required this.data,
+    required this.label,
+  });
+
+  final List<LineData> data;
+  final String label;
+
+  @override
+  Widget build(BuildContext context) {
+    var theme = Theme.of(context);
+    return Column(
+      children: [
+        Text(
+          label,
+          style: theme.textTheme.bodyLarge,
+        ),
+        SfCartesianChart(
+          primaryXAxis: const CategoryAxis(),
+          series: <LineSeries<LineData, String>>[
+            LineSeries<LineData, String>(
+              dataSource: data,
+              xValueMapper: (LineData line, _) => line.date,
+              yValueMapper: (LineData line, _) => line.value,
+            )
+          ],
+        ),
+      ],
+    );
+  }
+}
+
+class LineData {
+  final String date;
+  final double value;
+  LineData(this.date, this.value);
 }

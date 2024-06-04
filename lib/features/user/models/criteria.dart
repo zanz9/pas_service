@@ -34,12 +34,12 @@ class IProfessional {
   IProfessional();
 
   fromFirestore(Map<String, dynamic> data) {
-    knowledge = data['knowledge'] ?? 0;
-    ability = data['ability'] ?? 0;
-    skills = data['skills'] ?? 0;
-    experience = data['experience'] ?? 0;
-    qualification = data['qualification'] ?? 0;
-    resultOfWork = data['result of work'] ?? 0;
+    knowledge = data['knowledge'].toDouble() ?? 0;
+    ability = data['ability'].toDouble() ?? 0;
+    skills = data['skills'].toDouble() ?? 0;
+    experience = data['experience'].toDouble() ?? 0;
+    qualification = data['qualification'].toDouble() ?? 0;
+    resultOfWork = data['result of work'].toDouble() ?? 0;
 
     return this;
   }
@@ -76,11 +76,11 @@ class IPersonal {
   IPersonal();
 
   fromFirestore(Map<String, dynamic> data) {
-    theAbilityToSelfEsteem = data['the ability to self-esteem'] ?? 0;
-    morality = data['morality'] ?? 0;
-    honesty = data['honesty'] ?? 0;
-    justice = data['justice'] ?? 0;
-    psychologicalStability = data['psychological stability'] ?? 0;
+    theAbilityToSelfEsteem = data['the ability to self-esteem'].toDouble() ?? 0;
+    morality = data['morality'].toDouble() ?? 0;
+    honesty = data['honesty'].toDouble() ?? 0;
+    justice = data['justice'].toDouble() ?? 0;
+    psychologicalStability = data['psychological stability'].toDouble() ?? 0;
 
     return this;
   }
@@ -114,10 +114,10 @@ class IBusiness {
   IBusiness();
 
   fromFirestore(Map<String, dynamic> data) {
-    organization = data['organization'] ?? 0;
-    responsibility = data['responsibility'] ?? 0;
-    initiative = data['initiative'] ?? 0;
-    enterprise = data['enterprise'] ?? 0;
+    organization = data['organization'].toDouble() ?? 0;
+    responsibility = data['responsibility'].toDouble() ?? 0;
+    initiative = data['initiative'].toDouble() ?? 0;
+    enterprise = data['enterprise'].toDouble() ?? 0;
 
     return this;
   }
@@ -145,10 +145,10 @@ class IIntegral {
   IIntegral();
 
   fromFirestore(Map<String, dynamic> data) {
-    authority = data['authority'] ?? 0;
-    culture = data['culture'] ?? 0;
-    thinking = data['thinking'] ?? 0;
-    speech = data['speech'] ?? 0;
+    authority = data['authority'].toDouble() ?? 0;
+    culture = data['culture'].toDouble() ?? 0;
+    thinking = data['thinking'].toDouble() ?? 0;
+    speech = data['speech'].toDouble() ?? 0;
 
     return this;
   }
