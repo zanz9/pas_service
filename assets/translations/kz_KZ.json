@@ -1,0 +1,70 @@
+{
+  "home": {
+    "title": "Персоналды бағалау жүйесі",
+    "sortBy": {
+      "title": "Сұрыптау:",
+      "professional": "Кәсіби",
+      "personal": "Тұлғалық",
+      "business": "Іскерлік",
+      "integral": "Интегралдық"
+    },
+    "profile": {
+      "stateTrue": "Қазірдің өзінде бағалауға өтінім берілді",
+      "stateFalse": "Бағалауға өтінім берілген жоқ",
+      "onClickState": "Бағалауға өтініш беру"
+    }
+  },
+  "user": {
+    "title": "Пайдаланушы беті",
+    "criteria": "Бағалау критерийлері",
+    "professional": {
+      "title": "Кәсіби қасиеттері",
+      "knowledge": "Білімі",
+      "ability": "Дағдылары",
+      "skills": "Қабілеті",
+      "experience": "Кәсіби тәжірибесі",
+      "qualifications": "Біліктілігі",
+      "resultOfWork": "Еңбек нәтижелері"
+    },
+    "personal": {
+      "title": "Тұлғалық қасиеттері",
+      "theAbilityToSelfEsteem": "Өзін-өзі бағалау қабілеті",
+      "morality": "Адамгершілігі",
+      "honesty": "Адалдығы",
+      "justice": "Әділдігі",
+      "psychologicalStability": "Психологиялық тұрақтылығы"
+    },
+    "business": {
+      "title": "Іскерлік қасиеттеі",
+      "organization": "Ұйымдастыруы",
+      "responsibility": "Жауапкершілігі",
+      "initiative": "Бастамасы",
+      "enterprise": "Кәсіпкерлігі"
+    },
+    "integral": {
+      "title": "Интегралдық қасиеттер",
+      "authority": "Билігі",
+      "culture": "Мәдениеті",
+      "thinking": "Ойлауы",
+      "speech": "Сөйлеуі"
+    },
+    "start": "Бағалауды бастаңыз",
+    "cantStart": "Пайдаланушы бағалауды тексеруден өтті",
+    "validate": {
+      "title": "Пайдаланушыны бағалау",
+      "subHeader": "Бағалау критерийі"
+    }
+  },
+  "auth": {
+    "loginTitle": "Кіру беті",
+    "onLogin": "Кіру",
+    "dontHaveAccount": "Тіркелгі жоқ па? Тіркелу",
+    "registerTitle": "Тіркелу беті",
+    "onRegister": "Тіркелу",
+    "haveAccount": "Есептік жазба бар ма? Кіру",
+    "email": "Пошта",
+    "password": "Құпия сөз",
+    "firstName": "Аты",
+    "lastName": "Тегі"
+  }
+}

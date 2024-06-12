@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:pas_service/generated/l10n.dart';
 import 'package:pas_service/router.dart';
 
 class Login extends StatefulWidget {
@@ -31,11 +32,11 @@ class _LoginState extends State<Login> {
     } on FirebaseAuthException catch (e) {
       setState(() {
         if (e.code == 'user-not-found') {
-          message = 'Пользователь не найден';
+          message = S.of(context).auth_not_found;
         } else if (e.code == 'wrong-password') {
-          message = 'Неверный пароль';
+          message = S.of(context).auth_invalid;
         } else if (e.code == 'invalid-credential') {
-          message = 'Неверные данные для входа';
+          message = S.of(context).auth_invalid;
         }
       });
     } finally {
@@ -47,7 +48,7 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Войти'),
+        title: Text(S.of(context).loginTitle),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -58,18 +59,18 @@ class _LoginState extends State<Login> {
             const SizedBox(height: 16.0),
             TextField(
               controller: emailController,
-              decoration: const InputDecoration(
-                label: Text('Email'),
-                border: OutlineInputBorder(),
+              decoration: InputDecoration(
+                label: Text(S.of(context).email),
+                border: const OutlineInputBorder(),
               ),
             ),
             const SizedBox(height: 16.0),
             TextField(
               controller: passwordController,
               obscureText: true,
-              decoration: const InputDecoration(
-                label: Text('Пароль'),
-                border: OutlineInputBorder(),
+              decoration: InputDecoration(
+                label: Text(S.of(context).password),
+                border: const OutlineInputBorder(),
               ),
             ),
             const SizedBox(height: 16.0),
@@ -86,14 +87,14 @@ class _LoginState extends State<Login> {
                   )),
                   child: isPressed
                       ? const CircularProgressIndicator.adaptive()
-                      : const Text('Войти'),
+                      : Text(S.of(context).onLogin),
                 ),
                 const SizedBox(height: 20),
                 GestureDetector(
                   onTap: () => context.goNamed(RouterNames.register),
-                  child: const Text(
-                    'Нет аккаунта? Зарегистроваться',
-                    style: TextStyle(
+                  child: Text(
+                    S.of(context).dontHaveAccount,
+                    style: const TextStyle(
                       fontSize: 16,
                       color: CupertinoColors.inactiveGray,
                     ),

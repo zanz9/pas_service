@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:pas_service/generated/l10n.dart';
 import 'package:pas_service/router.dart';
 
 class Register extends StatefulWidget {
@@ -59,7 +60,7 @@ class _RegisterState extends State<Register> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Регистрация'),
+        title: Text(S.of(context).registerTitle),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -68,34 +69,34 @@ class _RegisterState extends State<Register> {
             const SizedBox(height: 128.0),
             TextField(
               controller: emailController,
-              decoration: const InputDecoration(
-                label: Text('Email'),
-                border: OutlineInputBorder(),
+              decoration: InputDecoration(
+                label: Text(S.of(context).email),
+                border: const OutlineInputBorder(),
               ),
             ),
             const SizedBox(height: 16.0),
             TextField(
               controller: firstNameController,
-              decoration: const InputDecoration(
-                label: Text('Имя'),
-                border: OutlineInputBorder(),
+              decoration: InputDecoration(
+                label: Text(S.of(context).firstName),
+                border: const OutlineInputBorder(),
               ),
             ),
             const SizedBox(height: 16.0),
             TextField(
               controller: lastNameController,
-              decoration: const InputDecoration(
-                label: Text('Фамилия'),
-                border: OutlineInputBorder(),
+              decoration: InputDecoration(
+                label: Text(S.of(context).lastName),
+                border: const OutlineInputBorder(),
               ),
             ),
             const SizedBox(height: 16.0),
             TextField(
               controller: passwordController,
               obscureText: true,
-              decoration: const InputDecoration(
-                label: Text('Пароль'),
-                border: OutlineInputBorder(),
+              decoration: InputDecoration(
+                label: Text(S.of(context).password),
+                border: const OutlineInputBorder(),
               ),
             ),
             const SizedBox(height: 16.0),
@@ -112,14 +113,14 @@ class _RegisterState extends State<Register> {
                   )),
                   child: isPressed
                       ? const CircularProgressIndicator.adaptive()
-                      : const Text('Зарегистрироваться'),
+                      : Text(S.of(context).onRegister),
                 ),
                 const SizedBox(height: 20),
                 GestureDetector(
                   onTap: () => context.goNamed(RouterNames.login),
-                  child: const Text(
-                    'Уже есть аккаунт? Войти',
-                    style: TextStyle(
+                  child: Text(
+                    S.of(context).haveAccount,
+                    style: const TextStyle(
                       fontSize: 16,
                       color: CupertinoColors.inactiveGray,
                     ),

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:pas_service/features/user/models/iuser.dart';
+import 'package:pas_service/generated/l10n.dart';
 
 import 'user_card.dart';
 
@@ -63,24 +64,24 @@ class _ListUsersState extends State<ListUsers> {
           padding: const EdgeInsets.symmetric(vertical: 12),
           child: Row(
             children: [
-              const Text('Сортировка по: '),
+              Text(S.of(context).sortBy),
               DropdownButton(
-                items: const [
+                items: [
                   DropdownMenuItem(
                     value: 'professional',
-                    child: Text('Профессиональные'),
+                    child: Text(S.of(context).sortBy_professional),
                   ),
                   DropdownMenuItem(
                     value: 'personal',
-                    child: Text('Личностные'),
+                    child: Text(S.of(context).sortBy_personal),
                   ),
                   DropdownMenuItem(
                     value: 'business',
-                    child: Text('Деловые'),
+                    child: Text(S.of(context).sortBy_business),
                   ),
                   DropdownMenuItem(
                     value: 'integral',
-                    child: Text('Интегральные'),
+                    child: Text(S.of(context).sortBy_integral),
                   ),
                 ],
                 value: sort,

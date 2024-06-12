@@ -3,6 +3,7 @@ import 'package:expandable_page_view/expandable_page_view.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pas_service/features/user/models/iuser.dart';
+import 'package:pas_service/generated/l10n.dart';
 import 'package:pas_service/router.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
@@ -50,6 +51,7 @@ class _UserPageState extends State<UserPage> {
     final backups = await db
         .collection('backups')
         .where('email', isEqualTo: widget.id)
+        .orderBy('date', descending: false)
         .get();
 
     for (var element in backups.docs) {
@@ -89,7 +91,7 @@ class _UserPageState extends State<UserPage> {
     final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Страница пользователя'),
+        title: Text(S.of(context).user),
         actions: [
           IconButton(
             onPressed: () async {
@@ -122,13 +124,13 @@ class _UserPageState extends State<UserPage> {
                           getValuesFromId();
                         }
                       },
-                      child: const Text('Начать оценку'),
+                      child: Text(S.of(context).user_start),
                     )
                   : Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          'У пользователя пройдена проверка оценки',
+                          S.of(context).user_cantStart,
                           style: theme.textTheme.titleMedium,
                         ),
                       ],
@@ -147,13 +149,16 @@ class _UserPageState extends State<UserPage> {
                       children: [
                         Chart(
                             data: chartProfessional,
-                            label: 'Профессиональные качества'),
+                            label: S.of(context).user_professional),
                         Chart(
-                            data: chartPersonal, label: 'Личностные качества'),
-                        Chart(data: chartBusiness, label: 'Деловые качества'),
+                            data: chartPersonal,
+                            label: S.of(context).user_personal),
+                        Chart(
+                            data: chartBusiness,
+                            label: S.of(context).user_business),
                         Chart(
                             data: chartIntegral,
-                            label: 'Интегральные качества'),
+                            label: S.of(context).user_integral),
                       ],
                     )
                   ],

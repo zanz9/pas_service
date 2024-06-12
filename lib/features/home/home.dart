@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:pas_service/features/home/components/list_users.dart';
+import 'package:pas_service/generated/l10n.dart';
+import 'package:pas_service/main.dart';
 
 import 'components/profile.dart';
 
@@ -36,7 +38,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Персоналды бағалау жүйесі'),
+          title: Text(S.of(context).home),
           actions: [
             IconButton(
               onPressed: () async {
@@ -45,6 +47,18 @@ class _HomeState extends State<Home> {
               icon: const Icon(Icons.logout),
             )
           ],
+          leading: IconButton(
+            onPressed: () {
+              if (MyApp.of(context)!.locale == const Locale('ru')) {
+                MyApp.of(context)!.setLocale(const Locale('en'));
+              } else {
+                MyApp.of(context)!.setLocale(const Locale('ru'));
+              }
+            },
+            icon: const Icon(
+              Icons.language,
+            ),
+          ),
         ),
         body: RefreshIndicator(
           onRefresh: () async {

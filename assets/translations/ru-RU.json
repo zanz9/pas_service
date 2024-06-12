@@ -1,0 +1,70 @@
+{
+  "home": {
+    "title": "Система оценки персонала",
+    "sortBy": {
+      "title": "Сортировка по:",
+      "professional": "Профессиональные",
+      "personal": "Личностные",
+      "business": "Деловые",
+      "integral": "Интегральные"
+    },
+    "profile": {
+      "stateTrue": "Уже подана заявка на оценку",
+      "stateFalse": "Не подана заявка на оценку",
+      "onClickState": "Подать заявку на оценку"
+    }
+  },
+  "user": {
+    "title": "Страница пользователя",
+    "criteria": "Критерии оценки",
+    "professional": {
+      "title": "Профессиональные качества",
+      "knowledge": "Знания",
+      "ability": "Умения",
+      "skills": "Навыки",
+      "experience": "Профессиональный опыт",
+      "qualifications": "Квалификации",
+      "resultOfWork": "Результаты труда"
+    },
+    "personal": {
+      "title": "Личные качества",
+      "theAbilityToSelfEsteem": "Способность к самооценке",
+      "morality": "Нравственность",
+      "honesty": "Честность",
+      "justice": "Справедливость",
+      "psychologicalStability": "Психологическая устойчивость"
+    },
+    "business": {
+      "title": "Деловые качества",
+      "organization": "Организованность",
+      "responsibility": "Ответственность",
+      "initiative": "Инициативность",
+      "enterprise": "Предприимчивость"
+    },
+    "integral": {
+      "title": "Интегральные качества",
+      "authority": "Авторитет",
+      "culture": "Культура",
+      "thinking": "Мышление",
+      "speech": "Речь"
+    },
+    "start": "Начать оценку",
+    "cantStart": "У пользователя пройдена проверка оценки",
+    "validate": {
+      "title": "Оценка пользователя",
+      "subHeader": "Критерий оценки"
+    }
+  },
+  "auth": {
+    "loginTitle": "Авторизация",
+    "onLogin": "Войти",
+    "dontHaveAccount": "Нет аккаунта? Зарегистроваться",
+    "registerTitle": "Регистрация",
+    "onRegister": "Зарегистрироваться",
+    "haveAccount": "Уже есть аккаунт? Войти",
+    "email": "Почта",
+    "password": "Пароль",
+    "firstName": "Имя",
+    "lastName": "Фамилия"
+  }
+}

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:pas_service/features/user/components/label_with_slider.dart';
 import 'package:pas_service/features/user/components/user_field.dart';
 import 'package:pas_service/features/user/models/criteria.dart';
+import 'package:pas_service/generated/l10n.dart';
 import 'package:pas_service/router.dart';
 
 import 'components/criteria_widget.dart';
@@ -78,7 +79,7 @@ class _ValidateState extends State<Validate> {
     var theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Оценка пользователя'),
+        title: Text(S.of(context).user_validate),
         actions: [
           IconButton(
             onPressed: saveValuesToDatabase,
@@ -96,53 +97,53 @@ class _ValidateState extends State<Validate> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      'Критерий оценки',
+                      S.of(context).user_validate_subHeader,
                       style: theme.textTheme.headlineSmall,
                     ),
                   ],
                 ),
                 CriteriaWidget(
-                  headtext: 'Профессиональные качества',
+                  headtext: S.of(context).user_professional,
                   avgValue: user!.professional,
                   labels: Column(
                     children: [
                       LabelWithSlider(
-                        text: 'Знания',
+                        text: S.of(context).user_professional_knowledge,
                         value: criteria.professional.knowledge,
                         onChanged: (value) => (setState(() {
                           criteria.professional.knowledge = value;
                         })),
                       ),
                       LabelWithSlider(
-                        text: 'Умения',
+                        text: S.of(context).user_professional_ability,
                         value: criteria.professional.ability,
                         onChanged: (value) => (setState(() {
                           criteria.professional.ability = value;
                         })),
                       ),
                       LabelWithSlider(
-                        text: 'Навыки',
+                        text: S.of(context).user_professional_skills,
                         value: criteria.professional.skills,
                         onChanged: (value) => (setState(() {
                           criteria.professional.skills = value;
                         })),
                       ),
                       LabelWithSlider(
-                        text: 'Проффесиональный опыт',
+                        text: S.of(context).user_professional_experience,
                         value: criteria.professional.experience,
                         onChanged: (value) => (setState(() {
                           criteria.professional.experience = value;
                         })),
                       ),
                       LabelWithSlider(
-                        text: 'Квалификация',
+                        text: S.of(context).user_professional_qualifications,
                         value: criteria.professional.qualification,
                         onChanged: (value) => (setState(() {
                           criteria.professional.qualification = value;
                         })),
                       ),
                       LabelWithSlider(
-                        text: 'Результаты труда',
+                        text: S.of(context).user_professional_resultOfWork,
                         value: criteria.professional.resultOfWork,
                         onChanged: (value) => (setState(() {
                           criteria.professional.resultOfWork = value;
@@ -152,40 +153,42 @@ class _ValidateState extends State<Validate> {
                   ),
                 ),
                 CriteriaWidget(
-                  headtext: 'Личные качества',
+                  headtext: S.of(context).user_personal,
                   avgValue: user!.personal,
                   labels: Column(
                     children: [
                       LabelWithSlider(
-                        text: 'Способность к самооценке',
+                        text:
+                            S.of(context).user_personal_theAbilityToSelfEsteem,
                         value: criteria.personal.theAbilityToSelfEsteem,
                         onChanged: (value) => (setState(() {
                           criteria.personal.theAbilityToSelfEsteem = value;
                         })),
                       ),
                       LabelWithSlider(
-                        text: 'Нравственность',
+                        text: S.of(context).user_personal_morality,
                         value: criteria.personal.morality,
                         onChanged: (value) => (setState(() {
                           criteria.personal.morality = value;
                         })),
                       ),
                       LabelWithSlider(
-                        text: 'Честность',
+                        text: S.of(context).user_personal_honesty,
                         value: criteria.personal.honesty,
                         onChanged: (value) => (setState(() {
                           criteria.personal.honesty = value;
                         })),
                       ),
                       LabelWithSlider(
-                        text: 'Справедливость',
+                        text: S.of(context).user_personal_justice,
                         value: criteria.personal.justice,
                         onChanged: (value) => (setState(() {
                           criteria.personal.justice = value;
                         })),
                       ),
                       LabelWithSlider(
-                        text: 'Психологическая уствойчивость',
+                        text:
+                            S.of(context).user_personal_psychologicalStability,
                         value: criteria.personal.psychologicalStability,
                         onChanged: (value) => (setState(() {
                           criteria.personal.psychologicalStability = value;
@@ -195,33 +198,33 @@ class _ValidateState extends State<Validate> {
                   ),
                 ),
                 CriteriaWidget(
-                  headtext: 'Деловые качества',
+                  headtext: S.of(context).user_business,
                   avgValue: user!.business,
                   labels: Column(
                     children: [
                       LabelWithSlider(
-                        text: 'Организованность',
+                        text: S.of(context).user_business_organization,
                         value: criteria.business.organization,
                         onChanged: (value) => (setState(() {
                           criteria.business.organization = value;
                         })),
                       ),
                       LabelWithSlider(
-                        text: 'Ответственность',
+                        text: S.of(context).user_business_responsibility,
                         value: criteria.business.responsibility,
                         onChanged: (value) => (setState(() {
                           criteria.business.responsibility = value;
                         })),
                       ),
                       LabelWithSlider(
-                        text: 'Инициативность',
+                        text: S.of(context).user_business_initiative,
                         value: criteria.business.initiative,
                         onChanged: (value) => (setState(() {
                           criteria.business.initiative = value;
                         })),
                       ),
                       LabelWithSlider(
-                        text: 'Предприимчивость',
+                        text: S.of(context).user_business_enterprise,
                         value: criteria.business.enterprise,
                         onChanged: (value) => (setState(() {
                           criteria.business.enterprise = value;
@@ -231,33 +234,33 @@ class _ValidateState extends State<Validate> {
                   ),
                 ),
                 CriteriaWidget(
-                  headtext: 'Интегральные качества',
+                  headtext: S.of(context).user_integral,
                   avgValue: user!.integral,
                   labels: Column(
                     children: [
                       LabelWithSlider(
-                        text: 'Авторитет',
+                        text: S.of(context).user_integral_authority,
                         value: criteria.integral.authority,
                         onChanged: (value) => (setState(() {
                           criteria.integral.authority = value;
                         })),
                       ),
                       LabelWithSlider(
-                        text: 'Культура',
+                        text: S.of(context).user_integral_culture,
                         value: criteria.integral.culture,
                         onChanged: (value) => (setState(() {
                           criteria.integral.culture = value;
                         })),
                       ),
                       LabelWithSlider(
-                        text: 'Мышление',
+                        text: S.of(context).user_integral_thinking,
                         value: criteria.integral.thinking,
                         onChanged: (value) => (setState(() {
                           criteria.integral.thinking = value;
                         })),
                       ),
                       LabelWithSlider(
-                        text: 'Речь',
+                        text: S.of(context).user_integral_speech,
                         value: criteria.integral.speech,
                         onChanged: (value) => (setState(() {
                           criteria.integral.speech = value;

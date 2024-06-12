@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:pas_service/features/user/components/criteria_list.dart';
 import 'package:pas_service/features/user/models/criteria.dart';
 import 'package:pas_service/features/user/models/iuser.dart';
+import 'package:pas_service/generated/l10n.dart';
+import 'package:pas_service/router.dart';
 
 class Profile extends StatefulWidget {
   const Profile({super.key, required this.currentUser});
@@ -42,6 +44,10 @@ class _ProfileState extends State<Profile> {
     await db.collection('users').doc(user.email).set(user.toFirestore());
   }
 
+  goTest() async {
+    router.pushNamed(RouterNames.test, pathParameters: {'id': user.email});
+  }
+
   @override
   void initState() {
     super.initState();
@@ -74,15 +80,15 @@ class _ProfileState extends State<Profile> {
             ),
             Text(
               user.state
-                  ? 'Уже подана заявка на оценку'
-                  : 'Не подана заявка на оценку',
+                  ? S.of(context).profile_stateTrue
+                  : S.of(context).profile_stateFalse,
               style: theme.textTheme.titleSmall!.copyWith(
                   color: theme.hintColor, fontWeight: FontWeight.normal),
             ),
             if (!user.state)
               ElevatedButton(
-                onPressed: onSubmitToChangeState,
-                child: const Text('Подать завку на оценку'),
+                onPressed: goTest,
+                child: Text(S.of(context).profile_onClickState),
               )
           ],
         ),
